@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Lesson_4___Making_a_Star_Class //Maxym F.
+namespace Lesson_4___Making_a_Star_Class //Maxym F
 {
     public class Game1 : Game
     {
