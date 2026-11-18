@@ -21,6 +21,8 @@ namespace Lesson_4___Making_a_Star_Class //Maxym F
         Rectangle window;
         Rectangle shipRect;
 
+        float starSpeed = -2f;
+
         Texture2D shipTexture;
         Texture2D starTexture;
         Texture2D windowTexture;
@@ -54,7 +56,7 @@ namespace Lesson_4___Making_a_Star_Class //Maxym F
 
             base.Initialize();
 
-            star1 = new Star(starTexture, new Rectangle(100, 100, 2, 2), new Vector2(-2, 0));
+          
 
             stars = new List<Star>();
             for (int i = 0; i < 150; i++)
@@ -63,7 +65,7 @@ namespace Lesson_4___Making_a_Star_Class //Maxym F
                 x = generator.Next(window.Width);
                 y = generator.Next(window.Height);
                 Rectangle star = new Rectangle(x, y, 3, 3);
-                stars.Add(new Star(starTexture, star, new Vector2(-2, 0)));
+                stars.Add(new Star(starTexture, window, Color.BurlyWood)); //Change colour here.
             }
 
         }
@@ -92,20 +94,22 @@ namespace Lesson_4___Making_a_Star_Class //Maxym F
 
             _keyboardState = Keyboard.GetState();
 
-            if (_keyboardState.IsKeyDown(Keys.W)) 
+            if (_keyboardState.IsKeyDown(Keys.W) && shipRect.Top > 0) 
             {
                 shipRect.Y -= 2;
             }
 
-            if (_keyboardState.IsKeyDown(Keys.S)) 
+            if (_keyboardState.IsKeyDown(Keys.S) && shipRect.Bottom < 570) 
             {
                 shipRect.Y += 2;
             }
 
-            star1.Update(window);
+           
+
+           
 
             foreach (Star star in stars)
-                star.Update(window);
+                star.Update(window, _keyboardState);
 
             base.Update(gameTime);
         }
@@ -119,16 +123,16 @@ namespace Lesson_4___Making_a_Star_Class //Maxym F
             _spriteBatch.Begin();
 
 
-            star1.Draw(_spriteBatch);
+            
 
-            foreach (var star in stars)
+            foreach (Star star in stars)
                 star.Draw(_spriteBatch);
 
             _spriteBatch.Draw(shipTexture, shipRect, Color.White);
 
             _spriteBatch.Draw(windowTexture, window, Color.White);
 
-            _spriteBatch.DrawString(_titleFont, "Press K To Go Into Warp Drive!", new Vector2(12, 67), Color.White);
+            _spriteBatch.DrawString(_titleFont, "Hold K To Go Into Warp Drive!", new Vector2(225, 478), Color.Red);
 
 
             _spriteBatch.End();
