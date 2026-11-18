@@ -43,11 +43,15 @@ namespace Lesson_4___Making_a_Star_Class
 
         public void Update(Rectangle window, KeyboardState keyboardState) 
         {
-            
-            
 
-            if (_location.Right < 0)
+
+
+            if (_location.Right < 0) 
+            {
                 _location.X = window.Width;
+                _location.Y = _generator.Next(window.Height);
+            }
+              
 
             if (keyboardState.IsKeyDown(Keys.K))
             {
